@@ -10,9 +10,9 @@ def create_shares_3_3(img_binary):
         for j in range(w):
             pixel = img_binary[i, j]
             if pixel == 0:  # Siyah piksel (gizli)
-                pattern = random.choice([[0, 1, 1], [1, 0, 1], [1, 1, 0]])
+                pattern = [random.randint(0, 1) for _ in range(3)]  # Siyah için tam rastgele
             else:  # Beyaz piksel (gizli değil)
-                pattern = [random.randint(0, 1) for _ in range(3)]  # Beyaz için rastgele deseni daha karışık yap
+                pattern = random.sample([0, 1, 1], 3)  # Beyaz için %50 siyah, %50 beyaz deseni
 
             for k in range(3):
                 shares[k][i, j] = pattern[k] * 255
