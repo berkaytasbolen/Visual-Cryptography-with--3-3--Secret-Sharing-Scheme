@@ -10,13 +10,21 @@ def create_shares_3_3(img_binary):
         for j in range(w):
             pixel = img_binary[i, j]
             if pixel == 0:  # Siyah piksel (gizli)
-                pattern = [random.randint(0, 1) for _ in range(3)]  # Siyah için tam rastgele
+                patterns = [
+                    [random.randint(0, 1), random.randint(0, 1), random.randint(0, 1)],  # Rastgele desen 1
+                    [random.randint(0, 1), random.randint(0, 1), random.randint(0, 1)],  # Rastgele desen 2
+                    [random.randint(0, 1), random.randint(0, 1), random.randint(0, 1)]   # Rastgele desen 3
+                ]
             else:  # Beyaz piksel (gizli değil)
-                pattern = random.sample([0, 1, 1], 3)  # Beyaz için %50 siyah, %50 beyaz deseni
+                patterns = [
+                    random.sample([0, 1, 1], 3),  # %67 beyaz
+                    random.sample([0, 1, 1], 3),  # %67 beyaz
+                    random.sample([0, 1, 1], 3)   # %67 beyaz
+                ]
 
             for k in range(3):
-                shares[k][i, j] = pattern[k] * 255
-    
+                shares[k][i, j] = patterns[k][k] * 255  # Her paya farklı desen ata
+
     return shares
 
 def combine_shares_3_3(shares):
